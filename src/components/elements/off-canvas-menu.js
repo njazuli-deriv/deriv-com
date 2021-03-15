@@ -6,11 +6,7 @@ import { LocalizedLink, localize, Localize } from 'components/localization'
 import { Accordion, AccordionItem, NavCard, Text, Divider } from 'components/elements'
 import Signals from 'components/svgs/signals'
 import { useOutsideClick } from 'components/hooks/outside-click'
-import {
-    cfd_warning_height_desktop,
-    cfd_warning_height_tablet,
-    deriv_status_page_url,
-} from 'common/utility'
+import { cfd_warning_height, deriv_status_page_url } from 'common/utility'
 // SVG
 import AffiliateIb from 'images/svg/menu/affiliate-ib.svg'
 import Blog from 'images/svg/blog-nav.svg'
@@ -47,26 +43,27 @@ import Trade from 'images/svg/trader-tool-nav.svg'
 const OffCanvasMenu = styled.section`
     position: fixed;
     background-color: var(--color-white);
-    top: ${(props) => (props.is_eu_country ? `${cfd_warning_height_desktop + 7.2}rem` : `7.2rem`)};
+    top: ${(props) => (props.is_eu_country ? `${cfd_warning_height.desktop + 7.2}rem` : `7.2rem`)};
     height: 100vh;
     width: 253px;
     opacity: 1;
     overflow: scroll;
-    transition: left 0.4s;
+    transition: transform 0.4s;
     box-shadow: 0 16px 20px 0 rgba(0, 0, 0, 0.1);
-    left: ${(props) => (props.is_canvas_menu_open ? '0' : '-254px')};
+    left: -254px;
+    ${({ is_canvas_menu_open }) => is_canvas_menu_open && 'transform: translateX(254px)'};
 
     @media ${device.tabletS} {
         top: ${(props) =>
-            props.is_eu_country ? `${cfd_warning_height_tablet + 7.2}rem` : `7.2rem`};
+            props.is_eu_country ? `${cfd_warning_height.tablet + 7.2}rem` : `7.2rem`};
     }
 `
 
 const OffCanvasMenuSecondary = styled(OffCanvasMenu)`
-    top: ${(props) => (props.is_eu_country ? `${cfd_warning_height_desktop + 10}rem` : `10rem`)};
+    top: ${(props) => (props.is_eu_country ? `${cfd_warning_height.desktop + 10}rem` : `10rem`)};
 
     @media ${device.tabletS} {
-        top: ${(props) => (props.is_eu_country ? `${cfd_warning_height_tablet + 10}rem` : `10rem`)};
+        top: ${(props) => (props.is_eu_country ? `${cfd_warning_height.tablet + 10}rem` : `10rem`)};
     }
 `
 
@@ -159,6 +156,7 @@ export const OffCanvasMenuWrapper = (props) => {
                         </Text>
                         <Flex mb="2rem">
                             <NavCard
+                                aria_label="DTrader"
                                 icon={() => (
                                     <img src={DTrader} alt="DTrader" width="32" height="32" />
                                 )}
@@ -172,6 +170,7 @@ export const OffCanvasMenuWrapper = (props) => {
                         </Flex>
                         <Flex mb="2rem">
                             <NavCard
+                                aria_label="DBot"
                                 icon={() => <img src={DBot} alt="DBot" width="32" height="32" />}
                                 content={
                                     <Localize translate_text="Automated trading at your fingertips. No coding needed." />
@@ -183,6 +182,7 @@ export const OffCanvasMenuWrapper = (props) => {
                         </Flex>
                         <Flex mb="2rem">
                             <NavCard
+                                aria_label="DMT5"
                                 icon={() => <img src={DMT5} alt="DMT5" width="32" height="32" />}
                                 content={
                                     <Localize translate_text="Trade on Deriv MetaTrader 5 (DMT5), the all-in-one FX and CFD trading platform." />
@@ -194,6 +194,7 @@ export const OffCanvasMenuWrapper = (props) => {
                         </Flex>
                         <Flex>
                             <NavCard
+                                aria_label="SmartTrader"
                                 icon={() => (
                                     <img
                                         src={Smarttrader}
@@ -222,6 +223,7 @@ export const OffCanvasMenuWrapper = (props) => {
                                 </Text>
                                 <Flex mb="2rem">
                                     <NavCard
+                                        aria_label="Margin trading"
                                         icon={() => (
                                             <img
                                                 src={MarginTrading}
@@ -241,6 +243,7 @@ export const OffCanvasMenuWrapper = (props) => {
                                 {!is_eu_country && (
                                     <Flex mb="2rem">
                                         <NavCard
+                                            aria_label="Options"
                                             icon={() => (
                                                 <img
                                                     src={Options}
@@ -260,6 +263,7 @@ export const OffCanvasMenuWrapper = (props) => {
                                 )}
                                 <Flex mb="2rem">
                                     <NavCard
+                                        aria_label="Multipliers"
                                         icon={() => (
                                             <img
                                                 src={Multipliers}
@@ -280,12 +284,13 @@ export const OffCanvasMenuWrapper = (props) => {
                         )}
                     </AccordionItem>
                     <AccordionItem
-                        header={localize('Markets')}
+                        header="Markets"
                         header_style={header_style}
                         style={content_style}
                     >
                         <Flex mb="3.2rem">
                             <NavCard
+                                aria_label="Forex"
                                 icon={() => <img src={Forex} alt="Forex" width="32" height="32" />}
                                 content={localize(
                                     'Trade the world’s largest financial market with popular forex pairs.',
@@ -298,6 +303,7 @@ export const OffCanvasMenuWrapper = (props) => {
                         {!props.is_ppc && (
                             <Flex mb="3.2rem">
                                 <NavCard
+                                    aria_label="Synthetic indices"
                                     icon={() => (
                                         <img
                                             src={SyntheticIndices}
@@ -317,6 +323,7 @@ export const OffCanvasMenuWrapper = (props) => {
                         )}
                         <Flex mb="3.2rem">
                             <NavCard
+                                aria_label="Stock Indices"
                                 icon={() => (
                                     <img
                                         src={StockIndices}
@@ -335,6 +342,7 @@ export const OffCanvasMenuWrapper = (props) => {
                         </Flex>
                         <Flex>
                             <NavCard
+                                aria_label="Commodities"
                                 icon={() => (
                                     <img
                                         src={Commodities}

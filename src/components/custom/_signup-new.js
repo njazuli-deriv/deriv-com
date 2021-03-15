@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { getLanguage } from 'common/utility'
 import { Input, Button } from 'components/form'
 import { Show } from 'components/containers'
 import { Header, Text, LinkText, Checkbox } from 'components/elements'
@@ -168,12 +167,15 @@ const StyledLinkText = styled(LinkText)`
     font-size: ${(props) => props.size || '14px'};
 `
 const StyledBinaryLogo = styled.img`
-    margin-right: 0.8rem;
+    height: 42px;
+    width: 43px;
+    margin-right: 8px;
     margin-top: 1rem;
 
     @media ${device.mobileL} {
         margin-top: 8px;
-        min-width: 32px;
+        height: 40px;
+        width: 40px;
     }
 `
 const SignupNew = ({
@@ -188,15 +190,20 @@ const SignupNew = ({
     is_ppc,
     is_submitting,
 }) => {
+    
     const [checkBoxState, setCheckBoxState] = useState(false)
+    const [language_code, setLanguageCode] = useState('en')
+
+    useEffect(() => {
+     setLanguageCode(localStorage.getItem('i18n'))
+    }, [])
 
     const handleChange = (event) => {
         setCheckBoxState(event.currentTarget.checked)
     }
-    const url =
-        getLanguage() === 'en' || getLanguage() == null
-            ? '/terms-and-conditions/'
-            : `/${getLanguage()}/terms-and-conditions/`
+
+    const url = `/${language_code}/terms-and-conditions/`
+     
     return (
         <SignupContent>
             <Show.Desktop>

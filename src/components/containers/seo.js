@@ -10,7 +10,7 @@ const non_localized_links = ['/careers', '/careers/']
 
 const languages = Object.keys(language_config)
 languages.push('x-default')
-const SEO = ({ description, meta, title, no_index, has_organization_schema }) => {
+const SEO = ({ description, meta, title, no_index, has_organization_schema, meta_attributes }) => {
     let queries = []
     queries = useStaticQuery(
         graphql`
@@ -54,8 +54,8 @@ const SEO = ({ description, meta, title, no_index, has_organization_schema }) =>
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'Deriv',
-            alternateName: 'Binary.com',
-            url: 'http://www.deriv.com',
+            alternateName: 'Deriv.com',
+            url: 'https://deriv.com',
             logo: 'https://deriv.com/static/1b57a116945933314eefeec0030c8e9d/2a4de/logo.png',
             sameAs: [
                 'https://www.facebook.com/derivdotcom',
@@ -63,7 +63,7 @@ const SEO = ({ description, meta, title, no_index, has_organization_schema }) =>
                 'https://www.instagram.com/deriv_official',
                 'https://youtube.com/c/Derivdotcom',
                 'https://www.linkedin.com/company/derivdotcom/',
-                'http://www.deriv.com',
+                'https://deriv.com',
             ],
         }
     }
@@ -88,7 +88,7 @@ const SEO = ({ description, meta, title, no_index, has_organization_schema }) =>
                 },
                 {
                     property: 'og:title',
-                    content: title,
+                    content: meta_attributes?.og_title || title,
                 },
                 {
                     property: 'og:site_name',
@@ -96,11 +96,11 @@ const SEO = ({ description, meta, title, no_index, has_organization_schema }) =>
                 },
                 {
                     property: 'og:description',
-                    content: metaDescription,
+                    content: meta_attributes?.og_description || metaDescription,
                 },
                 {
                     property: 'og:type',
-                    content: 'website',
+                    content: meta_attributes?.og_type || 'website',
                 },
                 {
                     property: 'og:locale',
@@ -108,15 +108,15 @@ const SEO = ({ description, meta, title, no_index, has_organization_schema }) =>
                 },
                 {
                     property: 'og:image',
-                    content: TradingImage,
+                    content: meta_attributes?.og_img || TradingImage,
                 },
                 {
                     property: 'og:image:width',
-                    content: '723',
+                    content: meta_attributes?.og_img_width || '723',
                 },
                 {
                     property: 'og:image:height',
-                    content: '423',
+                    content: meta_attributes?.og_img_height || '423',
                 },
                 {
                     name: 'twitter:card',
@@ -148,11 +148,11 @@ const SEO = ({ description, meta, title, no_index, has_organization_schema }) =>
                 },
                 ...(no_index || no_index_staging || is_ach_page
                     ? [
-                        {
-                            name: 'robots',
-                            content: 'noindex',
-                        },
-                    ]
+                          {
+                              name: 'robots',
+                              content: 'noindex',
+                          },
+                      ]
                     : []),
             ].concat(meta)}
         >
@@ -191,6 +191,7 @@ SEO.propTypes = {
     description: PropTypes.string,
     has_organization_schema: PropTypes.bool,
     meta: PropTypes.arrayOf(PropTypes.object),
+    meta_attributes: PropTypes.object,
     no_index: PropTypes.bool,
     title: PropTypes.string.isRequired,
 }

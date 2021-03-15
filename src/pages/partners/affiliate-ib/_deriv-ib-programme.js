@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Table, TR, TC } from './_table.js'
 import { Card, CardWrapper } from './_partner-card.js'
-import { SectionContainer, Container } from 'components/containers'
+import { SectionContainer, Container, Flex } from 'components/containers'
 import { Header, Text } from 'components/elements/typography'
 import { localize, Localize } from 'components/localization'
 import { Button, LinkButton } from 'components/form'
@@ -132,17 +132,14 @@ const ButtonWrapper = styled.div`
 const StyledHeaderCommission = styled(StyledHeader)`
     margin-bottom: 0;
     margin-left: -85px;
-    font-size: 16px;
-    @media (max-width: 1428px) {
+    @media ${device.desktopL} {
         margin-left: 0;
         text-align: center;
     }
 
-    @media ${device.tabletL} {
-        font-size: 20px;
-        text-align: left;
-        margin: auto;
-        width: 44rem;
+    @media (max-width: 1444px) {
+        margin-left: auto;
+        text-align: center;
     }
 
     @media ${device.mobileL} {
@@ -150,6 +147,8 @@ const StyledHeaderCommission = styled(StyledHeader)`
     }
 
     @media ${device.mobileM} {
+        text-align: left;
+        margin: auto;
         width: 38rem;
     }
 `
@@ -225,7 +224,7 @@ const DerivIBProgramme = () => {
                     </SubtitleHeader>
                 </TitleWrapper>
                 <IBSectionContainer padding="4rem 0 9.6rem 0">
-                    <StyledHeaderCommission as="h4" type="sub-section-title" mb="1.6rem">
+                    <StyledHeaderCommission as="h4" type="main-paragraph" mb="1.6rem">
                         {localize('Choose a commission plan:')}
                     </StyledHeaderCommission>
                     <StyledCardWrapper>
@@ -259,9 +258,9 @@ const DerivIBProgramme = () => {
 }
 
 const StyledChevron = styled.img`
-    width: 100%;
     margin-top: 0.8rem;
     height: 16px;
+    width: 16px;
     cursor: pointer;
     transform: ${(props) => (props.is_expand == 'true' ? 'rotate(-180deg)' : 'inherit ')};
 `
@@ -273,6 +272,10 @@ const StyledTR = styled(TR)`
 
 const SyntheticTable = styled(Table)`
     grid-template-columns: 50% 50%;
+
+    @media ${device.tabletL} {
+        grid-template-columns: 65% 35%;
+    }
 `
 const StyledLinkButton = styled(LinkButton)`
     height: 40px;
@@ -350,12 +353,14 @@ const DMT5Synthetic = ({ data }) => {
                             ))}
                         </SyntheticTable>
                         {has_expansion && (
-                            <StyledChevron
-                                src={Chevron}
-                                alt="chevron"
-                                onClick={toggleExpand}
-                                is_expand={is_expand.toString()}
-                            />
+                            <Flex>
+                                <StyledChevron
+                                    src={Chevron}
+                                    alt="chevron"
+                                    onClick={toggleExpand}
+                                    is_expand={is_expand.toString()}
+                                />
+                            </Flex>
                         )}
                         <HowItsCalculate>
                             <StyledButton flat onClick={toggleCalculated}>

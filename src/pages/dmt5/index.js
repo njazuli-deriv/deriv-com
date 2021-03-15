@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
+import { graphql, StaticQuery } from 'gatsby'
 import {
     WhyTrader,
     StartTrader,
@@ -8,7 +8,6 @@ import {
     DBanner,
     MarginCalculator,
 } from './_lazy-load'
-// import TradeControl from './_trade-control.js'
 import DHero from './_dhero'
 import Numbers from './_numbers'
 import WhatIsTrader from './_what-is-trader'
@@ -56,7 +55,6 @@ const DMT5 = () => {
         setMobile(isBrowser() ? window.screen.width <= size.mobileL : false)
         window.addEventListener('resize', handleResizeWindow)
     })
-    const data = useStaticQuery(query)
 
     return (
         <Layout>
@@ -88,12 +86,17 @@ const DMT5 = () => {
             <Flexibility />
             {/* TODO: add/revise this section when swap free trading design is ready */}
             {/* <SwapFreeTrading /> */}
-            <DBanner
-                background_pattern={
-                    is_mobile ? BackgroundPatternDMT5_mobile : BackgroundPatternDMT5
-                }
-                title={<Localize translate_text="Get into the DMT5 experience" />}
-                data={data}
+            <StaticQuery
+                query={query}
+                render={(data) => (
+                    <DBanner
+                        background_pattern={
+                            is_mobile ? BackgroundPatternDMT5_mobile : BackgroundPatternDMT5
+                        }
+                        title={<Localize translate_text="Get into the DMT5 experience" />}
+                        data={data}
+                    />
+                )}
             />
         </Layout>
     )
