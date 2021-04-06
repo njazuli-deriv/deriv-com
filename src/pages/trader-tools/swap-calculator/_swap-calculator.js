@@ -12,7 +12,7 @@ import {
     numberSubmitFormatNegative,
     numberSubmitFormat,
     numberWithCommas,
-} from '../common/_utility';
+} from '../common/_utility'
 import {
     optionItemDefault,
     syntheticItemLists,
@@ -198,7 +198,7 @@ const SwapCalculator = () => {
                                                     onChange={(value) => {
                                                         setFieldValue(
                                                             'swapCurrency',
-                                                            getCurrency(value),
+                                                            getCurrencySwap(value),
                                                         )
 
                                                         setFieldValue(
@@ -517,7 +517,7 @@ const SwapCalculator = () => {
                                                     onChange={(value) => {
                                                         setFieldValue(
                                                             'swapCurrency',
-                                                            getCurrency(value),
+                                                            getCurrencySwap(value),
                                                         )
                                                         setFieldValue(
                                                             'contractSize',

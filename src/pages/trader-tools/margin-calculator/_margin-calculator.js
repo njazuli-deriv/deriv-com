@@ -8,7 +8,7 @@ import {
     getContractSize,
     getCurrency,
     resetValidationMargin,
-} from '../common/_utility';
+} from '../common/_utility'
 import {
     optionItemDefault,
     leverageItemLists,
@@ -117,7 +117,7 @@ const MarginCalculator = () => {
                                 optionList: syntheticItemLists,
                                 contractSize: '',
                             }}
-                            validate={resetValidationMargin}
+                            validate={resetValidation}
                             onSubmit={(values, { setFieldValue }) => {
                                 setFieldValue('margin', getMargin(values))
                                 setFieldValue('volume', numberSubmitFormat(values.volume))
@@ -196,7 +196,7 @@ const MarginCalculator = () => {
                                             onChange={(value) => {
                                                 setFieldValue(
                                                     'marginSymbol',
-                                                    getCurrency(value),
+                                                    getMarginCurrency(value),
                                                 )
                                                 setFieldValue(
                                                     'contractSize',
