@@ -1,32 +1,45 @@
 import styled, { css } from 'styled-components'
 import { Form } from 'formik'
-import { Flex, SectionContainer } from 'components/containers'
-import { Header, Text, Dropdown } from 'components/elements'
+import { Flex, SectionContainer, Container } from 'components/containers'
+import { Text, Header, Dropdown } from 'components/elements'
 import { Button, LinkButton } from 'components/form'
 import device from 'themes/device'
+import Patterns from 'images/common/dmt5-signals/dmt5-signals-patterns.png'
 
-export const StyledText = styled(Text)`
+export const Hero = styled(Flex)`
+    height: 40rem;
+    background: var(--color-black);
+    background-image: url(${Patterns});
+    background-size: cover;
+
     @media ${device.tabletL} {
-        font-size: 16px;
+        height: 210px;
+    }
+`
+export const BreadCrumbContainer = styled(Container)`
+    margin-top: 2.4rem;
+
+    @media ${device.laptopL} {
+        width: 100%;
+    }
+    @media ${device.laptopM} {
+        width: 90%;
     }
 `
 
 export const StyledSection = styled(SectionContainer)`
     position: relative;
-    padding: 3rem 0;
-`
+    padding: 8rem 0;
 
-export const SectionHeader = styled(Header)`
-    @media ${device.tabletL} {
-        font-size: 32px;
+    @media ${device.laptopM} {
+        padding: 40px 0;
     }
 `
 
-export const SectionSubtitle = styled(Text)`
+export const SectionSubtitle = styled(Header)`
     width: 79.2rem;
-    margin: auto;
-    margin-bottom: 4rem;
-    font-size: 16px;
+    margin: 0 auto;
+    line-height: 1.5;
     @media ${device.tablet} {
         width: unset;
         padding: 0 16px;
@@ -34,12 +47,11 @@ export const SectionSubtitle = styled(Text)`
 `
 
 export const SwapTabSelector = styled(Flex)`
-    padding: 2.4rem 4rem;
-    width: 35rem;
-    height: 8.4rem;
+    padding: 22px 40px;
+    width: auto;
+    height: 80px;
     border-radius: 4px;
     border: solid 1px rgba(51, 51, 51, 0.1);
-    justify-content: center;
     flex-direction: column;
     cursor: pointer;
     ${(props) =>
@@ -59,7 +71,6 @@ export const SwapTabSelector = styled(Flex)`
               `}
 
     @media ${device.mobileL} {
-        width: 164px;
         padding: 12px 24px;
     }
 `
@@ -67,6 +78,11 @@ export const SwapTabSelector = styled(Flex)`
 export const ContentContainer = styled(Flex)`
     @media ${device.laptopM} {
         flex-direction: column;
+        margin: 40px 0;
+    }
+    @media ${device.laptop} {
+        margin-bottom: 40px;
+        padding: 0 16px;
     }
 `
 
@@ -76,22 +92,20 @@ export const FormWrapper = styled(Flex)`
     width: unset;
 
     @media ${device.laptopM} {
-        padding: 0 16px;
-        margin-bottom: 6rem;
-        margin-right: 0;
+        margin: 0 0 40px;
     }
 `
 export const SwapFormWrapper = styled(FormWrapper)`
-    height: 569px;
-    margin-top: 45px;
+    @media ${device.desktop} {
+        height: 569px;
+    }
     @media ${device.tabletL} {
         height: unset;
-        margin-top: 0;
     }
 `
 
 export const CalculatorForm = styled(Form)`
-    background-color: #ffffff;
+    background-color: var(--color-white);
     border-radius: 10px;
     box-sizing: border-box;
     box-shadow: 0 16px 20px 0 rgba(0, 0, 0, 0.05), 0 0 20px 0 rgba(0, 0, 0, 0.05);
@@ -234,7 +248,7 @@ export const CalculatorTabItem = styled.div`
         width: 140px;
     }
 
-    ${StyledText} {
+    ${Text} {
         @media ${device.mobileL} {
             font-size: 14px;
         }
@@ -251,22 +265,8 @@ export const InputGroup = styled.div`
     margin: 2.4rem 0;
 `
 
-export const ActionSection = styled(Flex)`
-    margin-top: 3rem;
-    justify-content: center;
-`
-
-export const SwapActionSection = styled(Flex)`
-    padding: 0 2rem 2rem 2rem;
-    justify-content: center;
-`
-
 export const CalculateButton = styled(Button)`
     width: 100%;
-
-    @media ${device.mobileL} {
-        font-size: 14px;
-    }
 `
 
 export const RightContent = styled.div`
@@ -278,119 +278,52 @@ export const RightContent = styled.div`
     }
 `
 
-export const RightContentHeader = styled(Header)`
-    line-height: 1.25;
-    @media ${device.mobileL} {
-        font-size: 24px;
-    }
-`
-
-export const TextWrapper = styled.div`
-    @media ${device.tabletM} {
-        padding: 0 16px;
-    }
-`
-
-export const ImageWrapper = styled.div`
-    padding-left: 16px;
-    max-width: 650px;
-
-    @media ${device.laptop} {
-        padding-left: 0;
-    }
-`
-
 export const FormulaText = styled.div`
-    background-color: #f9fafc;
+    background-color: var(--color-grey-25);
     padding: 1.6rem;
     font-size: 14px;
     line-height: 2;
 `
 
 export const StyledOl = styled.ol`
-    list-style: decimal;
+    list-style-type: none;
+    counter-reset: item;
     font-weight: bold;
-    margin-left: 20px;
+    margin-left: 4px;
 
+    li {
+        display: block;
+        position: relative;
+        margin-left: 12px;
+    }
+    li::before {
+        position: absolute;
+        content: counter(item) '  ';
+        counter-increment: item;
+        font-size: 10px;
+        margin: -1px 0 0 -10px;
+    }
     span {
         font-weight: 300;
     }
 `
 
-export const BottomContent = styled(Flex)`
-    max-width: 100%;
-    align-items: center;
-    margin-bottom: 7.2rem;
-    font-size: 1.6rem;
-    text-align: center;
-    padding: 0 16px;
-`
-
-export const BottomText = styled(StyledText)`
-    width: 120rem;
-
-    @media ${device.laptopL} {
-        width: auto;
-    }
-
-    @media ${device.tabletL} {
-        font-size: 16px;
-    }
-`
-
-// export const RightContentHeaderP = styled.div`
-//     font-size: 16px;
-//     font-weight: normal;
-//     font-stretch: normal;
-//     font-style: normal;
-//     line-height: 1.5;
-//     letter-spacing: normal;
-//     text-align: center;
-//     color: #333333;
-//     margin-bottom: 40px;
-
-//     @media ${device.mobileL} {
-//         margin-bottom: 16px;
-//     }
-// `
-
 export const LinkWrapper = styled(Flex)`
-    padding: 2rem 2rem 1rem;
-    width: 100%;
-    justify-content: center;
+    margin-top: 40px;
+    justify-content: flex-start;
 
-    @media (max-width: 1420px) {
-        top: 480px;
-    }
     @media ${device.laptop} {
-        top: 350px;
         flex-direction: column-reverse;
-    }
-    @media ${device.tabletL} {
-        top: 236px;
-    }
-    @media ${device.tablet} {
-        position: unset;
-        top: unset;
-        justify-content: start;
-        margin-top: 12.8px;
-        padding: 0;
+        max-width: 552px;
     }
 `
 
 export const StyledLinkButton = styled(LinkButton)`
-    padding: 1.2rem 1.5rem;
-    font-size: 14px;
-    max-height: 4rem;
-    height: 100%;
-    margin-right: 0.8rem;
+    margin-right: 8px;
 
     @media ${device.laptop} {
-        padding: 1.5rem 1.6rem;
-        height: 42px;
+        margin: 0;
         white-space: nowrap;
-        display: block;
-        max-height: 40px;
 
         :nth-child(2) {
             margin-bottom: 16px;
@@ -405,3 +338,13 @@ export const StyledLinkButton = styled(LinkButton)`
         outline: 0;
     }
 `
+export const item_style = {
+    padding: '16px 0',
+}
+export const header_style = {
+    padding: '16px 24px',
+    border: 'none',
+    borderRadius: '8px',
+    position: 'relative',
+    boxShadow: '0 4px 8px 0 rgba(14, 14, 14, 0.1)',
+}
