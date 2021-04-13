@@ -33,6 +33,8 @@ import {
     SwapTabSelector,
 } from '../common/_style'
 import validation from '../common/_validation'
+import CalculatedFormula from '../common/_calculated-formula'
+import { ResultStrong } from '../common/_formula-styling'
 import { localize, Localize } from 'components/localization'
 import {
     Accordion,
@@ -537,6 +539,9 @@ const SwapCalculator = () => {
                                                 alt={localize('swap synthetic formula mobile')}
                                             />
                                         </Show.Mobile>
+                                        <Flex>
+                                            <CalculatedFormula data={syntheticCalculatedFormula} />
+                                        </Flex>
                                         <FormulaText size="14px">
                                             <StyledOl>
                                                 <li>
@@ -858,6 +863,11 @@ const SwapCalculator = () => {
                                                 alt={localize('Swap forex formula mobile')}
                                             />
                                         </Show.Mobile>
+
+                                        <Flex>
+                                            <CalculatedFormula data={financialCalculatedFormula} />
+                                        </Flex>
+
                                         <FormulaText size="14px">
                                             <StyledOl>
                                                 <li>
@@ -911,6 +921,136 @@ const SwapCalculator = () => {
             </StyledSection>
         </>
     )
+}
+
+const financialCalculatedFormula = {
+    list: [
+        {
+            totalItem: 3,
+            mobileTemplate: 1,
+            desktopUpsideDown: false, //if the images has upside down value's desc
+            formula: [
+                {
+                    item: '2',
+                    description: 'Volume',
+                    next_operator: 'x',
+                    margin_left: '32px',
+                    margin_right: '26px',
+                    isTop: false,
+                },
+                {
+                    item: '100,000',
+                    description: 'Contract size',
+                    legend: '1',
+                    next_operator: 'x',
+                    margin_left: '26px',
+                    margin_right: '26px',
+                    isTop: false,
+                },
+                {
+                    item: '0.00001',
+                    description: 'Point value',
+                    legend: '2',
+                    next_operator: 'x',
+                    margin_left: '26px',
+                    margin_right: '26px',
+                    isTop: false,
+                },
+                {
+                    item: '-0.12',
+                    description: 'Swap rate',
+                    legend: '3',
+                    margin_left: '26px',
+                    margin_right: '26px',
+                    isTop: false,
+                },
+            ],
+            result: {
+                total: (
+                    <Localize
+                        translate_text="<0>-0.24</0>"
+                        components={[<ResultStrong key={0} />]}
+                    />
+                ),
+                description: 'Swap charge',
+                margin_left: '32px',
+                margin_right: '34px',
+                margin_top: '1px',
+            },
+        },
+    ],
+}
+
+const syntheticCalculatedFormula = {
+    list: [
+        {
+            totalItem: 5,
+            mobileTemplate: 2,
+            desktopUpsideDown: true, //if the images has upside down value's desc
+            formula: [
+                {
+                    item: '0.01',
+                    description: 'Volume',
+                    next_operator: 'x',
+                    margin_left: '8px',
+                    margin_right: '24px',
+                    isTop: false,
+                },
+                {
+                    item: '1',
+                    description: 'Contract size',
+                    legend: '1',
+                    next_operator: 'x',
+                    margin_left: '24px',
+                    margin_right: '24px',
+                    isTop: true,
+                },
+                {
+                    item: '400,000',
+                    description: 'Asset price',
+                    next_operator: 'x',
+                    margin_left: '24px',
+                    margin_right: '24px',
+                    isTop: false,
+                },
+                {
+                    item: '( -7.5',
+                    description: 'Swap rate',
+                    legend: '2',
+                    next_operator: '÷',
+                    margin_left: '24px',
+                    margin_right: '24px',
+                    isTop: true,
+                },
+                {
+                    item: '100 )',
+                    next_operator: '÷',
+                    margin_left: '24px',
+                    margin_right: '24px',
+                    isTop: false,
+                },
+                {
+                    item: '360',
+                    margin_left: '24px',
+                    margin_right: '24px',
+                    isTop: false,
+                    mobileBottom: true,
+                },
+            ],
+            result: {
+                total: (
+                    <Localize
+                        translate_text="<0>-0.83</0>"
+                        components={[<ResultStrong key={0} />]}
+                    />
+                ),
+                description: 'Swap charge',
+                margin_left: '16px',
+                margin_right: '16px',
+                margin_top: '1px',
+            },
+        },
+    ],
 }
 
 export default SwapCalculator

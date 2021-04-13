@@ -32,6 +32,8 @@ import {
     StyledOl,
     StyledSection,
 } from '../common/_style'
+import CalculatedFormula from '../common/_calculated-formula'
+import { ResultStrong } from '../common/_formula-styling'
 import validation from '../common/_validation'
 import { localize, Localize } from 'components/localization'
 import { Flex, Show } from 'components/containers'
@@ -455,6 +457,10 @@ const MarginCalculator = () => {
                                     />
                                 </Show.Mobile>
 
+                                <Flex>
+                                    <CalculatedFormula data={firstCalculatedFormula} />
+                                </Flex>
+
                                 <FormulaText>
                                     <StyledOl>
                                         <li>
@@ -499,6 +505,59 @@ const MarginCalculator = () => {
             </StyledSection>
         </>
     )
+}
+
+const firstCalculatedFormula = {
+    list: [
+        {
+            totalItem: 3,
+            mobileTemplate: 1,
+            desktopUpsideDown: false, //if the images has upside down value's desc
+            formula: [
+                {
+                    item: '( 2',
+                    description: 'Volume',
+                    next_operator: 'x',
+                    margin_left: '30px',
+                    margin_right: '38px',
+                    isTop: false,
+                },
+                {
+                    item: '100,000',
+                    description: 'Contract size',
+                    legend: '1',
+                    next_operator: 'x',
+                    margin_left: '30px',
+                    margin_right: '36px',
+                    isTop: false,
+                },
+                {
+                    item: '1.10 )',
+                    description: 'Asset price',
+                    next_operator: '÷',
+                    margin_left: '30px',
+                    margin_right: '30px',
+                    isTop: false,
+                },
+                {
+                    item: '100',
+                    description: 'Leverage',
+                },
+            ],
+            result: {
+                total: (
+                    <Localize
+                        translate_text="<0>2,200</0>"
+                        components={[<ResultStrong key={0} />]}
+                    />
+                ),
+                description: 'Margin required',
+                margin_left: '32px',
+                margin_right: '34px',
+                margin_top: '1px',
+            },
+        },
+    ],
 }
 
 export default MarginCalculator
