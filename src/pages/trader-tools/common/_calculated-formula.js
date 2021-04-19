@@ -123,7 +123,6 @@ const CalculatedFormula = ({ data }) => {
                         const { formula, result, mobileTemplate } = value
                         const totalResult = value.result.total
                         const totalResultDesc = value.result.description
-                        //console.log(totalNumberofOperation) // eslint-disable-line no-console
                         return mobileTemplate === 2 ? (
                             <FormulaContainer key={'mobile-template-2-' + index}>
                                 <FormulaHighlightSecondTemplate>
@@ -175,7 +174,6 @@ const CalculatedFormula = ({ data }) => {
                                             )
                                         })}
                                     </FormulaTopWrapper>
-                                    {/* eslint-disable-line */}
                                     <FormulaBottomWrapper>
                                         {formula.map((list, indexData) => {
                                             const { item, description } = list

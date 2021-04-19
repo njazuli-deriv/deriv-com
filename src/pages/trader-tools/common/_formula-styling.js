@@ -104,6 +104,10 @@ export const FormulaValueMobile = styled.div`
     line-height: 21px;
     font-weight: bold;
     color: var(--color-black-3);
+
+    @media (max-width: 350px) {
+        font-size: 12px;
+    }
 `
 export const FormulaValueMobileOneLine = styled.div`
     display: inline-block;
@@ -244,6 +248,9 @@ export const PointerText = styled.div`
 
     @media (max-width: 350px) {
         font-size: 12px;
+        ${(props) =>
+            props.is_last &&
+            'left: 68%;transform: translateX(-68%);width: 90px;margin-top: 1px;justify-content: flex-end;'};
     }
 `
 export const PointerTextMobile = styled.div`
