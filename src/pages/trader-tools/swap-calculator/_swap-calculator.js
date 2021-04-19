@@ -995,6 +995,7 @@ const syntheticCalculatedFormula = {
                     margin_left: '8px',
                     margin_right: '24px',
                     isTop: false,
+                    isMobileTop: true,
                 },
                 {
                     item: '1',
@@ -1004,6 +1005,8 @@ const syntheticCalculatedFormula = {
                     margin_left: '24px',
                     margin_right: '24px',
                     isTop: true,
+                    isMobileTop: false,
+                    long_stick: true,
                 },
                 {
                     item: '400,000',
@@ -1012,6 +1015,7 @@ const syntheticCalculatedFormula = {
                     margin_left: '24px',
                     margin_right: '24px',
                     isTop: false,
+                    isMobileTop: true,
                 },
                 {
                     item: '( -7.5',
@@ -1021,6 +1025,7 @@ const syntheticCalculatedFormula = {
                     margin_left: '24px',
                     margin_right: '24px',
                     isTop: true,
+                    isMobileTop: true,
                 },
                 {
                     item: '100 )',

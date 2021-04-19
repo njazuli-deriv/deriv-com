@@ -4,9 +4,8 @@ import device from 'themes/device'
 
 export const FormulaBottomWrapper = styled(Flex)`
     flex-direction: row;
-    margin-top: 16px;
+    margin-top: 8px;
     height: auto;
-    background-color: blue;
 `
 export const FormulaContainer = styled(Flex)`
     width: 100%;
@@ -63,7 +62,7 @@ export const FormulaHighlightSecondTemplate = styled(Flex)`
     justify-content: center;
 
     @media ${device.tabletL} {
-        padding: 25px 0;
+        padding: 25px 0 16px;
         flex-direction: column;
     }
 `
@@ -73,7 +72,8 @@ export const FormulaResultGreen = styled.span`
     margin-right: 2.8rem;
 
     @media ${device.tabletL} {
-        margin-right: 0;
+        margin-right: 8px;
+        margin-left: 8px;
     }
 `
 export const FormulaResult = styled.div`
@@ -94,15 +94,15 @@ export const FormulaTopWrapper = styled(Flex)`
     flex-direction: row;
     height: auto;
     margin-top: 0;
-    align-items: flex-start;
-    background-color: red;
+    align-items: center;
 `
 export const FormulaValueMobile = styled.div`
     display: inline-block;
     text-align: center;
     position: relative;
     font-size: 14px;
-    font-weight: normal;
+    line-height: 21px;
+    font-weight: bold;
     color: var(--color-black-3);
 `
 export const FormulaValueMobileOneLine = styled.div`
@@ -152,6 +152,23 @@ export const PointerContainer = styled.div`
         margin-top: 10px;
     }
 `
+export const PointerContainerTemplate2 = styled.div`
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 1rem;
+    ${(props) => props.is_top && 'display:flex;flex-direction: column-reverse;top: -40px;'};
+
+    @media ${device.tabletL} {
+        margin-top: 3px;
+        ${(props) => props.move_left && 'left: 30%;transform: translateX(-30%);'};
+        ${(props) => props.move_right && 'left: 80%;transform: translateX(-80%);'};
+    }
+
+    :nth-child(2) {
+        background: red;
+    }
+`
 export const PointerContainerResult = styled.div`
     position: absolute;
     left: 50%;
@@ -160,6 +177,16 @@ export const PointerContainerResult = styled.div`
 
     @media ${device.tabletL} {
         ${(props) => props.is_last && 'top: 30px;'};
+    }
+`
+export const PointerContainerResultTemplate2 = styled.div`
+    position: absolute;
+    left: 70%;
+    transform: translateX(-70%);
+    top: 33px;
+
+    @media ${device.tabletL} {
+        ${(props) => props.is_last && 'top: 24px;'};
     }
 `
 export const PointerContainerMobile = styled.div`
@@ -184,7 +211,7 @@ export const PointerStick = styled.div`
     margin-left: 3px;
 
     @media ${device.tabletL} {
-        height: 25px;
+        height: ${(props) => (props.isLongStick ? '55px' : '25px')};
     }
 `
 export const PointerText = styled.div`
@@ -209,7 +236,7 @@ export const PointerText = styled.div`
         ${(props) => props.is_top && 'top: -20px;left: 50%;transform: translateX(-50%);'};
         ${(props) =>
             props.is_last &&
-            'left: 68%;transform: translateX(-68%);width: 105px;margin-top: 1px;justify-content: flex-end;'};
+            'left: 64%;transform: translateX(-64%);width: 105px;margin-top: 1px;justify-content: flex-end;'};
         ${(props) =>
             props.is_first &&
             'justify-content: flex-start;left: 17%;transform: translateX(-17%);width: auto;'};

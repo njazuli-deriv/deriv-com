@@ -17,7 +17,9 @@ import {
     FormulaValueSwapSynthetic,
     Legend,
     PointerContainer,
+    PointerContainerTemplate2,
     PointerContainerResult,
+    PointerContainerResultTemplate2,
     // PointerContainerMobile,
     PointerDot,
     PointerStick,
@@ -25,6 +27,7 @@ import {
     // PointerTextMobile,
 } from './_formula-styling'
 import { Flex } from 'components/containers'
+import { isIndexEven } from 'common/utility'
 import device from 'themes/device'
 
 const DekstopWrapper = styled(Flex)`
@@ -128,21 +131,40 @@ const CalculatedFormula = ({ data }) => {
                                         {formula.map((list, indexData) => {
                                             const { item, description } = list
                                             const nextOperator = list.next_operator
+                                            let is_even = isIndexEven(indexData)
 
                                             return (
                                                 <>
-                                                    <FormulaValueMobile key={indexData}>
-                                                        {item}
-                                                        <PointerContainer is_top={indexData > 0}>
-                                                            <PointerDot />
-                                                            <PointerStick />
-                                                            <PointerText is_top={indexData > 0}>
-                                                                {description}
-                                                            </PointerText>
-                                                        </PointerContainer>
-                                                    </FormulaValueMobile>
-
-                                                    {nextOperator && (
+                                                    {!list.mobileBottom && (
+                                                        <FormulaValueMobile key={indexData}>
+                                                            {item}
+                                                            {list.description && (
+                                                                <PointerContainerTemplate2
+                                                                    is_top={list.isMobileTop}
+                                                                    move_left={!is_even}
+                                                                    move_right={is_even}
+                                                                >
+                                                                    <PointerDot />
+                                                                    <PointerStick
+                                                                        isLongStick={
+                                                                            list.long_stick
+                                                                        }
+                                                                    />
+                                                                    <PointerText
+                                                                        is_top={list.isMobileTop}
+                                                                    >
+                                                                        {description}
+                                                                        {list.legend && (
+                                                                            <Legend>
+                                                                                {list.legend}
+                                                                            </Legend>
+                                                                        )}
+                                                                    </PointerText>
+                                                                </PointerContainerTemplate2>
+                                                            )}
+                                                        </FormulaValueMobile>
+                                                    )}
+                                                    {nextOperator && !list.mobileBottom && (
                                                         <FormulaValueMobile>
                                                             <FormulaGreen>
                                                                 {nextOperator}
@@ -155,10 +177,71 @@ const CalculatedFormula = ({ data }) => {
                                     </FormulaTopWrapper>
                                     {/* eslint-disable-line */}
                                     <FormulaBottomWrapper>
+                                        {formula.map((list, indexData) => {
+                                            const { item, description } = list
+                                            const nextOperator = list.next_operator
+
+                                            return (
+                                                <>
+                                                    {list.mobileBottom && (
+                                                        <FormulaValueMobile key={indexData}>
+                                                            {item}
+                                                            {list.description && (
+                                                                <PointerContainerTemplate2
+                                                                    is_top={list.isMobileTop}
+                                                                >
+                                                                    <PointerDot />
+                                                                    <PointerStick
+                                                                        isLongStick={
+                                                                            list.long_stick
+                                                                        }
+                                                                    />
+                                                                    <PointerText
+                                                                        is_top={list.isMobileTop}
+                                                                    >
+                                                                        {description}
+                                                                        {list.legend && (
+                                                                            <Legend>
+                                                                                {list.legend}
+                                                                            </Legend>
+                                                                        )}
+                                                                    </PointerText>
+                                                                </PointerContainerTemplate2>
+                                                            )}
+                                                        </FormulaValueMobile>
+                                                    )}
+                                                    {nextOperator && list.mobileBottom && (
+                                                        <FormulaValueMobile>
+                                                            <FormulaGreen>
+                                                                {nextOperator}
+                                                            </FormulaGreen>
+                                                        </FormulaValueMobile>
+                                                    )}
+                                                </>
+                                            )
+                                        })}
                                         <FormulaResult>
                                             <FormulaValueResultSwapSynthetic>
                                                 <FormulaResultGreen>=</FormulaResultGreen>
-                                                {totalResult} {totalResultDesc}
+                                                {totalResult}
+                                                {totalResultDesc && (
+                                                    <PointerContainerResultTemplate2 is_last>
+                                                        <PointerDot />
+                                                        <PointerStick />
+                                                        <PointerText
+                                                            mt={
+                                                                result.margin_top &&
+                                                                result.margin_top
+                                                            }
+                                                            is_last
+                                                        >
+                                                            {totalResultDesc}
+                                                            {result.legend && (
+                                                                <Legend>{result.legend}</Legend>
+                                                            )}
+                                                        </PointerText>
+                                                    </PointerContainerResultTemplate2>
+                                                )}
                                             </FormulaValueResultSwapSynthetic>
                                         </FormulaResult>
                                     </FormulaBottomWrapper>
