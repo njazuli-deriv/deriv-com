@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import { isStorageSupported } from './storage'
 import { getDataObjFromCookies, getDataLink, getCookiesFields, getCookiesObject } from './cookies'
 import { getAppId } from './websocket/config'
-import { brand_name, deriv_app_id, oauth_url } from 'common/constants'
+import { brand_name } from 'common/constants'
 
 const Login = (() => {
     const redirectToLogin = () => {
