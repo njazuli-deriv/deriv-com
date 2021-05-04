@@ -8,7 +8,7 @@ import {
     getContractSize,
     getCurrency,
     resetValidationMargin,
-} from '../common/_utility'
+} from '../common/_utility';
 import {
     optionItemDefault,
     leverageItemLists,
@@ -193,7 +193,14 @@ const MarginCalculator = () => {
                                             items={values.optionList}
                                             label={localize('Symbol')}
                                             onChange={(value) => {
+<<<<<<< HEAD
                                                 setFieldValue('marginSymbol', getCurrency(value))
+=======
+                                                setFieldValue(
+                                                    'marginSymbol',
+                                                    getCurrency(value),
+                                                )
+>>>>>>> 2d6aa0e3f6e5ccc99d87fd909f473debd2d25265
                                                 setFieldValue(
                                                     'contractSize',
                                                     getContractSize(value),
